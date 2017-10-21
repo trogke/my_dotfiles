@@ -22,7 +22,7 @@
 " Be awesome. Strictly speaking, this is unnecessary in most situations
 " but better save then sorry.
 set nocompatible
-
+set backspace=indent,eol,start
 " I use pathogen for things that can not be installed via vim-plug
 execute pathogen#infect()
 
@@ -83,6 +83,7 @@ endif
 function! ProseMode()
   call goyo#execute(0, [])
   set spell noci nosi noai nolist noshowmode noshowcmd
+  set spelllang=de_DE
   set complete+=s
   set bg=light
   if !has('gui_running')
