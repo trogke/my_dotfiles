@@ -23,8 +23,13 @@
 " but better save then sorry.
 set nocompatible
 set backspace=indent,eol,start
+set mouse=a
+
 " I use pathogen for things that can not be installed via vim-plug
 execute pathogen#infect()
+" Installed via pathogen are:
+" * nerdtree
+" * the solarized colorscheme
 
 " Enable syntax highlighting and auto-indent.
 " Theme settings go here as well
@@ -69,12 +74,23 @@ Plug 'tpope/vim-fugitive'
 " Use gc in visual mode to comment out lines
 Plug 'tpope/vim-commentary'
 
+" Us vim-autocomplete to auto-close braces etc.
+Plug 'Townk/vim-autoclose'
+
 call plug#end()
 
 " make ack.vim use ag
 if executable('ag')
 	let g:ackprg = 'ag --vimgrep'
 endif
+
+" Open NERDTree automatically when vim starts up
+" and no files where specified
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" Open NERDTree automatically when vim starts up
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * NERDTree
 
 " ProseMode
 " (From: https://statico.github.io/vim3.html)
@@ -99,6 +115,9 @@ let g:lightline = {
 			\ 'colorscheme': 'solarized',
 			\}
 
+" Configure tabs
+set tabstop=4 softtabstop=0 shiftwidth=4 smarttab expandtab
+
 " ALE
 " Since i often run on battery, i want ALE to not run that often
 " 400ms delay after typing before the linter runs
@@ -116,6 +135,11 @@ nmap <Leader>r :Tags<CR>
 
 " Trigger Prose mode with ,p
 nmap <Leader>p :ProseMode<CR>
+
+" Open NERDTree with t
+nmap t :NERDTree<CR>
+
+nmap <LEADER>c :!ctags-proj.sh<CR>
 
 " Remap [ to < and ] to >, because i have a german keyboard
 " This is usefull for :Ack and makes :cnext and :cprev easily
