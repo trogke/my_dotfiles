@@ -91,6 +91,8 @@ endif
 " Open NERDTree automatically when vim starts up
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * NERDTree
+" Switch to other window
+autocmd VimEnter * wincmd p
 
 " ProseMode
 " (From: https://statico.github.io/vim3.html)
