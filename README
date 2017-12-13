@@ -1,6 +1,5 @@
 My personal configuration files
 
-This currently only includes my .vimrc, which is heavily inspired by
-this article: https://statico.github.io/vim3.html
-
-
+I use tmux + vim for development (and everything else). My configuration is based on the following articles:
+  * https://statico.github.io/vim3.html
+  * https://blog.bugsnag.com/tmux-and-vim/
