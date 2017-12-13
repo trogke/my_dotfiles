@@ -80,6 +80,9 @@ Plug 'Townk/vim-autoclose'
 " vim-tmux-navigator for seamless navigation between vim splits and tmux panes
 Plug 'christoomey/vim-tmux-navigator'
 
+" vimux to send commands to other tmux panes from vim
+Plug 'benmills/vimux'
+
 call plug#end()
 
 " make ack.vim use ag
@@ -161,5 +164,9 @@ xmap > ]
 " Vertical split with vv
 nnoremap <silent> vv <C-w>v
 
+" Run command with vimux using ,vp
+map <Leader>vp :VimuxPromptCommand<CR>
+
 " Generate help tags
 silent! helptags ALL
+
