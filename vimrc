@@ -77,6 +77,9 @@ Plug 'tpope/vim-commentary'
 " Us vim-autocomplete to auto-close braces etc.
 Plug 'Townk/vim-autoclose'
 
+" vim-tmux-navigator for seamless navigation between vim splits and tmux panes
+Plug 'christoomey/vim-tmux-navigator'
+
 call plug#end()
 
 " make ack.vim use ag
@@ -93,6 +96,8 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * NERDTree
 " Switch to other window
 autocmd VimEnter * wincmd p
+" Automatically remove a buffer, if a file is renamed or deleted via nerdtree
+let NERDTreeAutoDeleteBuffer=1
 
 " ProseMode
 " (From: https://statico.github.io/vim3.html)
@@ -153,6 +158,8 @@ omap > ]
 xmap < [
 xmap > ]
 
+" Vertical split with vv
+nnoremap <silent> vv <C-w>v
 
 " Generate help tags
 silent! helptags ALL
