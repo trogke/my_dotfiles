@@ -83,6 +83,12 @@ Plug 'christoomey/vim-tmux-navigator'
 " vimux to send commands to other tmux panes from vim
 Plug 'benmills/vimux'
 
+" tagbar to get an overview over file contents
+Plug 'majutsushi/tagbar'
+
+" youcompleteme
+Plug 'Valloric/YouCompleteMe'
+
 call plug#end()
 
 " make ack.vim use ag
@@ -106,16 +112,29 @@ let NERDTreeAutoDeleteBuffer=1
 " (From: https://statico.github.io/vim3.html)
 " I like the idea and since i get easily distracted while writing,
 " i thought i would give it a shot
+let g:prose_mode_running=0
 function! ProseMode()
-  call goyo#execute(0, [])
-  set spell noci nosi noai nolist noshowmode noshowcmd
-  set spelllang=de_DE
-  set complete+=s
-  set bg=light
-  if !has('gui_running')
-    let g:solarized_termcolors=256
+  if g:prose_mode_running == 0
+      call goyo#execute(0, [])
+      set spell noci nosi noai nolist noshowmode noshowcmd
+      set spelllang=de_de
+      set complete+=s
+      set bg=light
+      if !has('gui_running')
+          let g:solarized_termcolors=256
+      endif
+      colors solarized
+      let g:prose_mode_running=1
+  else
+      call goyo#execute(0, [])
+      set nospell ci si ai nolist showmode showcmd
+      set bg=dark
+      if !has('gui_running')
+          let g:solarized_termcolors=256
+      endif
+      colors solarized
+      let g:prose_mode_running=0
   endif
-  colors solarized
 endfunction
 command! ProseMode call ProseMode()
 
@@ -143,12 +162,7 @@ nmap ; :Buffers<CR>
 nmap <Leader>t :Files<CR>
 nmap <Leader>r :Tags<CR>
 
-" Trigger Prose mode with ,p
-nmap <Leader>p :ProseMode<CR>
-
-" Open NERDTree with t
-nmap t :NERDTree<CR>
-
+" Generate Tags with c
 nmap <LEADER>c :!ctags-proj.sh<CR>
 
 " Remap [ to < and ] to >, because i have a german keyboard
@@ -166,6 +180,31 @@ nnoremap <silent> vv <C-w>v
 
 " Run command with vimux using ,vp
 map <Leader>vp :VimuxPromptCommand<CR>
+" Run last command again with ,vr
+map <Leader>vr :VimuxRunLastCommand<CR>
+
+" Trigger Prose mode with F6
+nmap <F6> :ProseMode<CR>
+
+" Open NERDTree with <F7>
+nmap <F7> :NERDTree<CR>
+
+" Toggle tagbar with F8
+map <F8> :TagbarToggle<CR>
+
+" "Training Mode"
+" Disable ESC for returning to nomral mode - use jk instead
+" Disable Arrow Keys in normal and insert mode
+inoremap jk <esc>
+inoremap <esc> <nop>
+nnoremap <up>    <nop>
+nnoremap <down>  <nop>
+nnoremap <left>  <nop>
+nnoremap <right> <nop>
+inoremap <up>    <nop>
+inoremap <down>  <nop>
+inoremap <left>  <nop>
+inoremap <right> <nop>
 
 " Generate help tags
 silent! helptags ALL
