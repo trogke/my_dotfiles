@@ -41,6 +41,11 @@ if !has('gui_running')
 endif
 colorscheme solarized
 
+" include language specific configuration
+for rcfile in split(globpath("~/.vim/vim_languages", "*.vim"), '\n') 
+    execute('source '.rcfile)
+endfor"
+
 " Install plugins in ./vim/plugged
 " We specify all plugins here
 " This depends on vim-plug
@@ -83,11 +88,14 @@ Plug 'christoomey/vim-tmux-navigator'
 " vimux to send commands to other tmux panes from vim
 Plug 'benmills/vimux'
 
-" tagbar to get an overview over file contents
+" winresizer to resize windows
+Plug 'simeji/winresizer'
+
+" tagbar to get an overview over file content
 Plug 'majutsushi/tagbar'
 
 " youcompleteme
-Plug 'Valloric/YouCompleteMe'
+"Plug 'Valloric/YouCompleteMe'
 
 call plug#end()
 
@@ -197,14 +205,23 @@ map <F8> :TagbarToggle<CR>
 " Disable Arrow Keys in normal and insert mode
 inoremap jk <esc>
 inoremap <esc> <nop>
-nnoremap <up>    <nop>
-nnoremap <down>  <nop>
-nnoremap <left>  <nop>
-nnoremap <right> <nop>
-inoremap <up>    <nop>
-inoremap <down>  <nop>
-inoremap <left>  <nop>
-inoremap <right> <nop>
+" noremap  <up> ""
+" noremap! <up> <esc>
+" noremap  <down> ""
+" noremap! <down> <esc>
+" noremap  <left> ""
+" noremap! <left> <esc>
+" noremap  <right> ""
+" noremap! <right> <esc>
+
+ nnoremap <up>    <nop>
+ nnoremap <down>  <nop>
+ nnoremap <left>  <nop>
+ nnoremap <right> <nop>
+ inoremap <up>    <nop>
+ inoremap <down>  <nop>
+ inoremap <left>  <nop>
+ inoremap <right> <nop>
 
 " Generate help tags
 silent! helptags ALL
