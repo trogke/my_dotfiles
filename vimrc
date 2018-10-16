@@ -80,7 +80,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 
 " Us vim-autocomplete to auto-close braces etc.
-Plug 'Townk/vim-autoclose'
+"Plug 'Townk/vim-autoclose'
 
 " vim-tmux-navigator for seamless navigation between vim splits and tmux panes
 Plug 'christoomey/vim-tmux-navigator'
@@ -201,10 +201,7 @@ nmap <F7> :NERDTree<CR>
 map <F8> :TagbarToggle<CR>
 
 " "Training Mode"
-" Disable ESC for returning to nomral mode - use jk instead
 " Disable Arrow Keys in normal and insert mode
-inoremap jk <esc>
-inoremap <esc> <nop>
 " noremap  <up> ""
 " noremap! <up> <esc>
 " noremap  <down> ""
