@@ -31,15 +31,6 @@ execute pathogen#infect()
 " * nerdtree
 " * the solarized colorscheme
 
-" Enable syntax highlighting and auto-indent.
-" Theme settings go here as well
-syntax on
-filetype plugin indent on
-set background=dark
-if !has('gui_running')
-	let g:solarized_termcolors=256
-endif
-colorscheme solarized
 
 " include language specific configuration
 for rcfile in split(globpath("~/.vim/vim_languages", "*.vim"), '\n') 
@@ -53,7 +44,7 @@ call plug#begin('~/.vim/plugged')
 
 " Vim plugin for fzf
 " A fuzzy finder that enables us to search buffers, files, etc.
-Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+Plug '~/.fzf' | Plug 'junegunn/fzf.vim'
 
 " Plugin for using ack/ag for searching inside the current project
 Plug 'mileszs/ack.vim'
@@ -97,12 +88,55 @@ Plug 'majutsushi/tagbar'
 " youcompleteme
 "Plug 'Valloric/YouCompleteMe'
 
+" the nord theme
+Plug 'arcticicestudio/nord-vim'
+
+" Gutentags
+Plug 'ludovicchabant/vim-gutentags'
+
+" Vim-Completes-Me
+Plug 'ajh17/VimCompletesMe'
+
 call plug#end()
 
 " make ack.vim use ag
 if executable('ag')
 	let g:ackprg = 'ag --vimgrep'
 endif
+
+" Enable syntax highlighting and auto-indent.
+" Theme settings go here as well
+syntax on
+filetype plugin indent on
+
+function! SetupColorscheme()
+    " Solarized config
+    if 0
+        " Lightline
+        set laststatus=2
+        let g:lightline = {
+                    \ 'colorscheme': 'solarized',
+                    \}
+        colorscheme solarized
+        set background=dark
+        if !has('gui_running')
+            let g:solarized_termcolors=256
+        endif
+    else
+        " Lightline
+        set laststatus=2
+        let g:lightline = {
+                    \ 'colorscheme': 'nord',
+                    \}
+        " Nord config
+        let g:nord_underline = 1
+        let g:nord_italic = 1
+        let g:nord_italic_comments = 1
+        let g:nord_uniform_status_lines = 1
+        colorscheme nord
+    endif
+endfunction
+call SetupColorscheme()
 
 " Open NERDTree automatically when vim starts up
 " and no files where specified
@@ -136,21 +170,11 @@ function! ProseMode()
   else
       call goyo#execute(0, [])
       set nospell ci si ai nolist showmode showcmd
-      set bg=dark
-      if !has('gui_running')
-          let g:solarized_termcolors=256
-      endif
-      colors solarized
-      let g:prose_mode_running=0
+      call SetupColorscheme()
   endif
 endfunction
 command! ProseMode call ProseMode()
 
-" Lightline
-set laststatus=2
-let g:lightline = {
-			\ 'colorscheme': 'solarized',
-			\}
 
 " Configure tabs
 set tabstop=4 softtabstop=0 shiftwidth=4 smarttab expandtab
